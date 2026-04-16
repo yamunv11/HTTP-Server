@@ -11,7 +11,7 @@
 #include <unistd.h>
 
 #define QUEUE 5
-#define PORT 8080
+#define PORT 6969
 
 void client::close_connection()
 {
@@ -34,7 +34,7 @@ Server::Server()
         error("bind failed");
     if (listen(server_socket, QUEUE) == -1)
         error("listen failed");
-    std::cout << "Server initialized\nready to accept connections...\n";
+    std::cout << "Server initialized\nlistenting on port 6969...\n";
 }
 
 Server::~Server()
