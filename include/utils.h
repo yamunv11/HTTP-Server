@@ -1,6 +1,8 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-void error(const char *message);
+#include <string>
+
+void cerror(std::string message);
 
 #endif  /* UTILS_H */

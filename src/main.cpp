@@ -1,17 +1,12 @@
+#include <exception>
 #include <iostream>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include "server.h"
 
-const std::string message = "HTTP/1.1 200 OK\r\n"
-                            "Content-Type: text/plain\r\n"
-                            "Connection: close\r\n"
-                            "\r\n"
-                            "Hello from server\r\n";
-
 int main()
-{
+try {
     Server s;
     while (1) {
         client c = s.acpt_con();
@@ -28,4 +23,6 @@ int main()
         std::cout << "=======================================\n";
     }
     return 0;
+} catch (std::exception &e) {
+    std::cout << e.what() << '\n';
 }

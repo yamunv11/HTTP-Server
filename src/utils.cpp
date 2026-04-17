@@ -1,8 +1,8 @@
-#include <stdio.h>
+#include <cstring>
+#include <stdexcept>
 #include <stdlib.h>
 
-void error(const char *message)
+void cerror(std::string message)
 {
-    perror(message);
-    exit(EXIT_FAILURE);
+    throw std::runtime_error(message + ": " + strerror(errno));
 }
