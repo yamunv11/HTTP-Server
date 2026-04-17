@@ -1,9 +1,9 @@
+#include "server.h"
+#include <arpa/inet.h>
 #include <exception>
 #include <iostream>
 #include <netinet/in.h>
-#include <arpa/inet.h>
 #include <sys/socket.h>
-#include "server.h"
 
 int main()
 try {
@@ -16,7 +16,8 @@ try {
         std::cout << "IP: " << buffer << "\nConnection accepted\n\n";
 
         std::string request = s.recieve(c);
-        std::cout << "Client sent:\n" << request << '\n';
+        std::cout << "Client sent:\n"
+                  << request << '\n';
 
         s.respond(c, htos("/home/amun/projects/blog/site/index.html"));
         std::cout << "Response sent\n";

@@ -5,4 +5,4 @@
 
 void cerror(std::string message);
 
-#endif  /* UTILS_H */
+#endif /* UTILS_H */

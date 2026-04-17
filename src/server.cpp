@@ -16,8 +16,7 @@
 void client::close_connection()
 {
     close(client_socket);
-}    
-
+}
 
 Server::Server()
 {
@@ -61,7 +60,7 @@ client Server::acpt_con()
 std::string Server::recieve(client &c)
 // only handles requests with no body for now
 {
-    char buffer[256] = {0};
+    char buffer[256] = { 0 };
     std::string request;
     ssize_t n;
     while (1) {
@@ -99,9 +98,9 @@ std::string htos(std::string s)
     std::ifstream f(s);
     if (!f.is_open())
         throw std::runtime_error("Can't open file: " + s);
-    
+
     std::ostringstream ss;
     ss << f.rdbuf();
     std::string html = ss.str();
     return headers + html + "\r\n";
-}    
+}
