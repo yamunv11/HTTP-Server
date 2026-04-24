@@ -5,27 +5,27 @@
 #include <string>
 #include <unistd.h>
 
-class client {
+class client_t {
 public:
-    client() : client_socket { 0 } , ip_addr { 0 } { }
-    inline ~client() { close(client_socket); };
+    client_t() : client_socket { 0 } , ip_addr { 0 } { }
+    inline ~client_t() { close(client_socket); };
     int client_socket;
     uint32_t ip_addr;
 
     void close_connection();
 };
 
-class Server {
+class server_t {
     int server_socket;
     struct sockaddr_in sa;
 
 public:
-    Server();
-    ~Server();
+    server_t();
+    ~server_t();
 
-    client accept_connection();
-    std::string recieve(client &c);
-    void respond(client &c, const std::string &response);
+    client_t accept_connection();
+    std::string recieve(client_t &c);
+    void respond(client_t &c, const std::string &response);
 };
 
 std::string htos(std::string);

@@ -13,12 +13,12 @@
 #define QUEUE 5
 #define PORT 6969
 
-void client::close_connection()
+void client_t::close_connection()
 {
     close(client_socket);
 }
 
-Server::Server()
+server_t::server_t()
 {
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (server_socket == -1)
@@ -36,12 +36,12 @@ Server::Server()
     std::cout << "Server initialized\nlistenting on port 6969...\n";
 }
 
-Server::~Server()
+server_t::~server_t()
 {
     close(server_socket);
 }
 
-client Server::accept_connection()
+client_t server_t::accept_connection()
 {
     struct sockaddr_in client_addr;
     socklen_t client_len = sizeof(client_addr);
@@ -50,15 +50,16 @@ client Server::accept_connection()
         throw std::runtime_error(std::string("Accept failed: ") + strerror(errno));
     }
 
-    client client;
+    client_t client;
     client.client_socket = client_socket;
     client.ip_addr = client_addr.sin_addr.s_addr;
 
     return client;
 }
 
-std::string Server::recieve(client &c)
+std::string server_t::recieve(client_t &c)
 // only handles requests with no body for now
+// returns a string, so not handling for images, etc.
 {
     char buffer[256] = { 0 };
     std::string request;
@@ -76,7 +77,7 @@ std::string Server::recieve(client &c)
     return request;
 }
 
-void Server::respond(client &c, const std::string &response)
+void server_t::respond(client_t &c, const std::string &response)
 {
     const char *message = response.c_str();
     size_t total = 0;

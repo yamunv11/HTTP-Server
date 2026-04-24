@@ -14,6 +14,7 @@ const std::string err404 = "HTTP/1.1 404 Not Found\r\n"
                            "<head><title>404 Not Found</title></head>\r\n"
                            "<body>\r\n"
                            "<h1>Not Found</h1>\r\n"
+                           "<h2>Skill issue loser</h2>\r\n"
                            "<p>The requested resource was not found on this server.</p>\r\n"
                            "</body>\r\n"
                            "</html>\r\n\r\n";
@@ -21,16 +22,16 @@ const std::string err404 = "HTTP/1.1 404 Not Found\r\n"
 
 int main()
 try {
-    Server server;
+    server_t server;
     while (1) {
-        client client = server.accept_connection();
+        client_t client = server.accept_connection();
         char buffer[INET_ADDRSTRLEN];
         inet_ntop(AF_INET, &client.ip_addr, buffer, INET_ADDRSTRLEN);
         std::cout << "=======================================\n";
         std::cout << "IP: " << buffer << "\nConnection accepted\n\n";
 
         std::string req_str = server.recieve(client);
-        Request req = parse_request(req_str);
+        request_t req = parse_request(req_str);
 
         if (req.path == "/") {
             std::string response = htos("/home/amun/projects/blog/site/index.html");

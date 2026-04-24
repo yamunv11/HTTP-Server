@@ -36,9 +36,9 @@ int read_token(std::istringstream &ss, std::string &token)
     return 1;
 }
 
-Request parse_request(const std::string &raw)
+request_t parse_request(const std::string &raw)
 {
-    Request r;
+    request_t r;
     std::istringstream ss { raw };
     std::string token;
     std::vector<std::string> tokens;

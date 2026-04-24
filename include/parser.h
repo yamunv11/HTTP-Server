@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 
-struct Request {
+struct request_t {
     std::string method;
     std::string path;
     std::string version;
@@ -13,6 +13,6 @@ struct Request {
 };
 
 int read_token(std::istringstream &ss, std::string &token);
-Request parse_request(const std::string &raw);
+request_t parse_request(const std::string &raw);
 
 #endif  /* PARSER_H */
