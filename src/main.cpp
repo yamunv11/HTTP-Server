@@ -7,19 +7,19 @@
 
 int main()
 try {
-    Server s;
+    Server server;
     while (1) {
-        client c = s.acpt_con();
+        client client = server.accept_connection();
         char buffer[INET_ADDRSTRLEN];
-        inet_ntop(AF_INET, &c.ip_addr, buffer, INET_ADDRSTRLEN);
+        inet_ntop(AF_INET, &client.ip_addr, buffer, INET_ADDRSTRLEN);
         std::cout << "=======================================\n";
         std::cout << "IP: " << buffer << "\nConnection accepted\n\n";
 
-        std::string request = s.recieve(c);
+        std::string request = server.recieve(client);
         std::cout << "Client sent:\n"
                   << request << '\n';
 
-        s.respond(c, htos("/home/amun/projects/blog/site/index.html"));
+        server.respond(client, htos("/home/amun/projects/blog/site/index.html"));
         std::cout << "Response sent\n";
         std::cout << "=======================================\n";
     }

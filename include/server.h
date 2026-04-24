@@ -23,7 +23,7 @@ public:
     Server();
     ~Server();
 
-    client acpt_con();
+    client accept_connection();
     std::string recieve(client &c);
     void respond(client &c, std::string response);
 };

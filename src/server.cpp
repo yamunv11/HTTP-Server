@@ -41,7 +41,7 @@ Server::~Server()
     close(server_socket);
 }
 
-client Server::acpt_con()
+client Server::accept_connection()
 {
     struct sockaddr_in client_addr;
     socklen_t client_len = sizeof(client_addr);
