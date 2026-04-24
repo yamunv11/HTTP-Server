@@ -76,7 +76,7 @@ std::string Server::recieve(client &c)
     return request;
 }
 
-void Server::respond(client &c, std::string response)
+void Server::respond(client &c, const std::string &response)
 {
     const char *message = response.c_str();
     size_t total = 0;
@@ -91,14 +91,14 @@ void Server::respond(client &c, std::string response)
 
 std::string htos(std::string s)
 {
+    std::ifstream f(s);
+    if (!f.is_open())
+        return "";
+
     const std::string headers = "HTTP/1.1 200 OK\r\n"
                                 "Content-Type: text/html\r\n"
                                 "Connection: close\r\n"
                                 "\r\n";
-    std::ifstream f(s);
-    if (!f.is_open())
-        throw std::runtime_error("Can't open file: " + s);
-
     std::ostringstream ss;
     ss << f.rdbuf();
     std::string html = ss.str();

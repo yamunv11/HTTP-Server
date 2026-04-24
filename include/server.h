@@ -25,7 +25,7 @@ public:
 
     client accept_connection();
     std::string recieve(client &c);
-    void respond(client &c, std::string response);
+    void respond(client &c, const std::string &response);
 };
 
 std::string htos(std::string);

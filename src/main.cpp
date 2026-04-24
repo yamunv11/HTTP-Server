@@ -1,9 +1,23 @@
 #include "server.h"
+#include "parser.h"
 #include <arpa/inet.h>
 #include <exception>
 #include <iostream>
 #include <netinet/in.h>
 #include <sys/socket.h>
+
+const std::string err404 = "HTTP/1.1 404 Not Found\r\n"
+                           "Content-Type: text/html\r\n"
+                           "Connection: close\r\n"
+                           "\r\n"
+                           "<html>\r\n"
+                           "<head><title>404 Not Found</title></head>\r\n"
+                           "<body>\r\n"
+                           "<h1>Not Found</h1>\r\n"
+                           "<p>The requested resource was not found on this server.</p>\r\n"
+                           "</body>\r\n"
+                           "</html>\r\n\r\n";
+
 
 int main()
 try {
@@ -15,13 +29,20 @@ try {
         std::cout << "=======================================\n";
         std::cout << "IP: " << buffer << "\nConnection accepted\n\n";
 
-        std::string request = server.recieve(client);
-        std::cout << "Client sent:\n"
-                  << request << '\n';
+        std::string req_str = server.recieve(client);
+        Request req = parse_request(req_str);
 
-        server.respond(client, htos("/home/amun/projects/blog/site/index.html"));
+        if (req.path == "/") {
+            std::string response = htos("/home/amun/projects/blog/site/index.html");
+            server.respond(client, response);
+        } else {
+            std::string response = htos("/home/amun/projects/blog/site" + req.path);
+            if (response.empty()) {
+                server.respond(client, err404);
+            }
+            server.respond(client, response);
+        }
         std::cout << "Response sent\n";
-        std::cout << "=======================================\n";
     }
     return 0;
 } catch (std::exception &e) {
