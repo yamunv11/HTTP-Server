@@ -37,6 +37,7 @@ int read_token(std::istringstream &ss, std::string &token)
 }
 
 request_t parse_request(const std::string &raw)
+// only handles requests with no body, doesn't keep track of headers, only for method and paths
 {
     request_t r;
     std::istringstream ss { raw };
